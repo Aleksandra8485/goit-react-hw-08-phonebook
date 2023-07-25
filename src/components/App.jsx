@@ -7,12 +7,13 @@ import {
   setFilter,
 } from '../redux/contacts/contactsSlice';
 import axios from 'axios';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ConctactList/ContactList';
 import Navigation from './Navigation/Navigation';
+import UserMenu from './UserMenu/UserMenu';
 import styles from './App.module.css';
 
 const App = () => {
@@ -33,7 +34,7 @@ const App = () => {
     } else {
       try {
         const response = await axios.post(
-          'https://64b581fcf3dbab5a95c766eb.mockapi.io/contacts',
+          'https://connections-api.herokuapp.com/contacts',
           { name, number }
         );
         dispatch(saveContact(response.data)); // zapisywanie kontaktu do backendu przy użyciu akcji saveContact
@@ -46,7 +47,7 @@ const App = () => {
   const handleDeleteContact = async contactId => {
     try {
       await axios.delete(
-        `https://64b581fcf3dbab5a95c766eb.mockapi.io/contacts/${contactId}`
+        `https://connections-api.herokuapp.com/contacts/${contactId}`
       );
       dispatch(deleteContact(contactId)); // usuwanie kontaktu z backendu przy użyciu akcji deleteContact
     } catch (error) {
@@ -75,38 +76,68 @@ const App = () => {
     <div className={styles.appContainer}>
       <Router>
         <Navigation />
-        <Route exact path="/">
-          <div>
-            <h2>Home</h2>
-            {/* Dodaj zawartość strony Home, np. */}
-            <ContactForm addContact={addContact} />
-            <h2>Contacts</h2>
-            <Filter filter={filter} handleFilterChange={handleFilterChange} />
-            <ContactList
-              contacts={filteredContacts}
-              deleteContact={handleDeleteContact}
-            />
-          </div>
-        </Route>
-        <Route path="/login">
-          <div>
-            <h2>Login</h2>
-            {/* Dodaj zawartość strony Login, np. */}
-            <p>Tu będzie formularz logowania</p>
-          </div>
-        </Route>
-        <Route path="/register">
-          <div>
-            <h2>Register</h2>
-            {/* Dodaj zawartość strony Register, np. */}
-            <p>Tu będzie formularz rejestracji</p>
-          </div>
-        </Route>
-        {/* Dodaj inne trasy do innych komponentów */}
+        <Switch>
+          {' '}
+          {/* Dodaj Switch */}
+          <Route exact path="/">
+            <div>
+              <h2>Phonebook</h2>
+              <p>All your contacts in one place</p>
+              <ContactForm addContact={addContact} />
+              <h2>Contacts</h2>
+              <Filter filter={filter} handleFilterChange={handleFilterChange} />
+              {contacts.length > 0 && <UserMenu />}{' '}
+              {/* Wyświetl UserMenu tylko gdy użytkownik jest zalogowany */}
+              <ContactList
+                contacts={filteredContacts}
+                deleteContact={handleDeleteContact}
+              />
+            </div>
+          </Route>
+          <Route path="/login">
+            <div>
+              <h2>Login</h2>
+              <form>
+                <label>
+                  Email:
+                  <input type="email" name="email" />
+                </label>
+                <label>
+                  Password:
+                  <input type="password" name="password" />
+                </label>
+                <button type="submit">Login</button>
+              </form>
+            </div>
+          </Route>
+          <Route path="/register">
+            <div>
+              <h2>Register</h2>
+              <form>
+                <label>
+                  Login:
+                  <input type="text" name="login" />
+                </label>
+                <label>
+                  Email:
+                  <input type="email" name="email" />
+                </label>
+                <label>
+                  Password:
+                  <input type="password" name="password" />
+                </label>
+                <button type="submit">Register</button>
+              </form>
+            </div>
+          </Route>
+          {/* Dodaj inne trasy do innych komponentów */}
+        </Switch>
       </Router>
     </div>
   );
 };
+
+export default App;
 
 //   return (
 //     <div className={styles.appContainer}>
@@ -121,5 +152,3 @@ const App = () => {
 //     </div>
 //   );
 // };
-
-export default App;
