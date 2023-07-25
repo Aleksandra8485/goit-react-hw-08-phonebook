@@ -3,13 +3,11 @@ import { createRoot } from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import App from './components/App';
-import { BrowserRouter } from 'react-router-dom'; // Upewnij się, że importujesz BrowserRouter
+import { BrowserRouter } from 'react-router-dom';
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
-      {' '}
-      {/* Dodaj BrowserRouter jako główny punkt wejścia */}
       <App />
     </BrowserRouter>
   </Provider>
