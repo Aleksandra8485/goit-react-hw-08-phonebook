@@ -30,19 +30,36 @@ export const deleteContact = createAsyncThunk(
   }
 );
 
-export const fetchContacts = createAsyncThunk(
-  'contacts/fetchContacts',
-  async () => {
-    try {
-      const response = await axios.get(
-        'https://connections-api.herokuapp.com/contacts'
-      );
-      return response.data;
-    } catch (error) {
-      throw new Error('Failed to fetch contacts.');
-    }
+// export const fetchContacts = createAsyncThunk(
+//   'contacts/fetchContacts',
+//   async () => {
+//     try {
+//       const response = await axios.get(
+//         'https://connections-api.herokuapp.com/contacts'
+//       );
+//       return response.data;
+//     } catch (error) {
+//       throw new Error('Failed to fetch contacts.');
+//     }
+//   }
+// );
+
+export const fetchContacts = () => async (dispatch, getState) => {
+  const token = getState().auth.token; // pobieranie tokena z Redux Store
+  try {
+    const response = await axios.get(
+      'https://connections-api.herokuapp.com/contacts',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // dodanie nagłówka z tokenem
+        },
+      }
+    );
+    dispatch(setContacts(response.data));
+  } catch (error) {
+    console.error(error);
   }
-);
+};
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -55,6 +72,9 @@ const contactsSlice = createSlice({
   reducers: {
     setFilter: (state, action) => {
       state.filter = action.payload;
+    },
+    setContacts: (state, action) => {
+      state.contacts = action.payload;
     },
   },
   extraReducers: builder => {
@@ -82,12 +102,19 @@ const contactsSlice = createSlice({
       state.status = 'failed';
       state.error = action.error.message;
     });
+    builder.addCase(fetchContacts.pending, state => {
+      state.status = 'loading';
+    });
     builder.addCase(fetchContacts.fulfilled, (state, action) => {
       state.status = 'succeeded';
       state.contacts = action.payload;
     });
+    builder.addCase(fetchContacts.rejected, (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message;
+    });
   },
 });
 
-export const { setFilter } = contactsSlice.actions;
+export const { setFilter, setContacts } = contactsSlice.actions;
 export default contactsSlice.reducer;

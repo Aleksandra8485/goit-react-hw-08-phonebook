@@ -37,9 +37,14 @@ const App = () => {
   // }, [dispatch, isAuthenticated, navigate]);
 
   useEffect(() => {
-    // Pobieranie kontaktu z backendu przy montowaniu komponentu
-    dispatch(fetchContacts());
+    dispatch(fetchContacts()); // Pobieranie kontaktów z backendu przy montowaniu komponentu
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     dispatch(fetchContacts());
+  //   }
+  // }, [dispatch, isAuthenticated]);
 
   const addContact = async (name, number) => {
     const existingContact = contacts.find(
