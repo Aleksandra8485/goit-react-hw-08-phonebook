@@ -7,7 +7,7 @@ import {
   setFilter,
 } from '../redux/contacts/contactsSlice';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
@@ -76,9 +76,9 @@ const App = () => {
     <div className={styles.appContainer}>
       <Router>
         <Navigation />
-        <Switch>
+        <Routes>
           {' '}
-          {/* Dodaj Switch */}
+          {/* Zmieniamy na "Routes" */}
           <Route exact path="/">
             <div>
               <h2>Phonebook</h2>
@@ -130,8 +130,7 @@ const App = () => {
               </form>
             </div>
           </Route>
-          {/* Dodaj inne trasy do innych komponentów */}
-        </Switch>
+        </Routes>
       </Router>
     </div>
   );
