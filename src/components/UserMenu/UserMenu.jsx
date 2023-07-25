@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const UserMenu = () => {
   // Stan do przechowywania informacji o zalogowanym użytkowniku
@@ -9,8 +9,8 @@ const UserMenu = () => {
   // Pobieramy dispatch z Redux, aby móc wywołać akcję wylogowania użytkownika
   const dispatch = useDispatch();
 
-  // Pobieramy history z react-router-dom, aby przekierować użytkownika po wylogowaniu
-  const history = useHistory();
+  // Pobieramy navigate z react-router-dom, aby przekierować użytkownika po wylogowaniu
+  const navigate = useNavigate(); // Zmieniamy użycie useHistory na useNavigate
 
   // Funkcja obsługująca wylogowanie użytkownika
   const handleLogout = () => {
@@ -22,7 +22,7 @@ const UserMenu = () => {
     dispatch({ type: 'LOGOUT' });
 
     // Przekierowujemy użytkownika na stronę logowania po wylogowaniu
-    history.push('/login');
+    navigate('/login'); // Zmieniamy użycie history.push na navigate
   };
 
   // Komponent UserMenu wyświetla pocztę użytkownika i przycisk wylogowania
