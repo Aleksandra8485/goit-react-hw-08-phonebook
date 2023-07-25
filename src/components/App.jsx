@@ -7,22 +7,38 @@ import {
   setFilter,
 } from '../redux/contacts/contactsSlice';
 import axios from 'axios';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ConctactList/ContactList';
 import Navigation from './Navigation/Navigation';
 import UserMenu from './UserMenu/UserMenu';
+import LoginForm from './LoginForm/LoginForm';
+import RegisterForm from './RegisterForm/RegisterForm';
+// import { isAuthenticated } from '../redux/authSlice';
 import styles from './App.module.css';
 
 const App = () => {
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const contacts = useSelector(state => state.contacts.contacts);
   const filter = useSelector(state => state.contacts.filter);
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   // Pobieranie kontaktu z backendu przy montowaniu komponentu
+  //   dispatch(fetchContacts());
+
+  //   // przekierowanie na stronę logowania, jeśli użytkownik nie jest zalogowany
+  //   if (!isAuthenticated) {
+  //     navigate('/login');
+  //   }
+  // }, [dispatch, isAuthenticated, navigate]);
 
   useEffect(() => {
-    dispatch(fetchContacts()); // pobieranie kontaktu z backendu przy montowaniu komponentu
+    // Pobieranie kontaktu z backendu przy montowaniu komponentu
+    dispatch(fetchContacts());
   }, [dispatch]);
 
   const addContact = async (name, number) => {
@@ -65,6 +81,12 @@ const App = () => {
     return <div>Loading...</div>;
   }
 
+  // przekierowanie na stronę logowania, jeśli użytkownik nie jest zalogowany
+  if (!isAuthenticated) {
+    navigate('/login');
+    return null;
+  }
+
   // filtrowanie kontaktów i zabezpieczenie przed użyciem toLowerCase, gdy filter jest undefined
   const filteredContacts = contacts.filter(contact => {
     return filter
@@ -76,7 +98,6 @@ const App = () => {
     <div className={styles.appContainer}>
       <Navigation />
       <Routes>
-        {' '}
         <Route exact path="/">
           <div>
             <h2>Phonebook</h2>
@@ -92,42 +113,8 @@ const App = () => {
             />
           </div>
         </Route>
-        <Route path="/login">
-          <div>
-            <h2>Login</h2>
-            <form>
-              <label>
-                Email:
-                <input type="email" name="email" />
-              </label>
-              <label>
-                Password:
-                <input type="password" name="password" />
-              </label>
-              <button type="submit">Login</button>
-            </form>
-          </div>
-        </Route>
-        <Route path="/register">
-          <div>
-            <h2>Register</h2>
-            <form>
-              <label>
-                Login:
-                <input type="text" name="login" />
-              </label>
-              <label>
-                Email:
-                <input type="email" name="email" />
-              </label>
-              <label>
-                Password:
-                <input type="password" name="password" />
-              </label>
-              <button type="submit">Register</button>
-            </form>
-          </div>
-        </Route>
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
       </Routes>
     </div>
   );
