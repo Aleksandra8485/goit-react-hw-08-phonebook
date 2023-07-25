@@ -14,10 +14,10 @@ function RegisterForm() {
           password,
         }
       );
-      // Obsłuż odpowiedź z backendu (np. wyświetl komunikat o powodzeniu rejestracji)
-      console.log(response.data); // Możesz wykorzystać dane z odpowiedzi, np. potwierdzenie rejestracji
+      // obsługa odpowiedzi z backendu (np. wyświetl komunikat o powodzeniu rejestracji)
+      console.log(response.data); // można wykorzystać dane z odpowiedzi, np. potwierdzenie rejestracji
     } catch (error) {
-      // Obsłuż błędy (np. wyświetl komunikat o nieudanej rejestracji)
+      // obsługa błędu (np. wyświetl komunikat o nieudanej rejestracji)
       console.error(error);
     }
   };

@@ -78,7 +78,6 @@ const App = () => {
         <Navigation />
         <Routes>
           {' '}
-          {/* Zmieniamy na "Routes" */}
           <Route exact path="/">
             <div>
               <h2>Phonebook</h2>

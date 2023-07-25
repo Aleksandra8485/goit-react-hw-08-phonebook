@@ -14,10 +14,10 @@ function LoginForm() {
           password,
         }
       );
-      // Obsłuż odpowiedź z backendu (np. zapisz token JWT w localStorage, aby zachować sesję użytkownika)
-      console.log(response.data); // Możesz wykorzystać dane z odpowiedzi, np. token JWT
+      // obsługa odpowiedzi z backendu (np. zapisz token JWT w localStorage, aby zachować sesję użytkownika)
+      console.log(response.data); // można wykorzystać dane z odpowiedzi, np. token JWT
     } catch (error) {
-      // Obsłuż błędy (np. wyświetl komunikat o nieudanym logowaniu)
+      // obsługa błędu (np. wyświetl komunikat o nieudanym logowaniu)
       console.error(error);
     }
   };

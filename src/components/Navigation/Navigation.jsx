@@ -1,12 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import styles from './Navigation.module.css'; // Opcjonalne, użyj tego, jeśli chcesz dodać stylowanie do nawigacji
 
 const Navigation = () => {
   return (
     <nav>
       {' '}
-      {/* Dodaj klasę do nawigacji, jeśli chcesz dodać stylowanie */}
       <ul>
         <li>
           <Link to="/">Home</Link>
@@ -25,4 +23,5 @@ const Navigation = () => {
 
 export default Navigation;
 
+// import styles from './Navigation.module.css'; //
 //   <nav className={styles.navigationContainer}>
