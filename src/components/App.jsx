@@ -7,7 +7,7 @@ import {
   setFilter,
 } from '../redux/contacts/contactsSlice';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
@@ -74,63 +74,61 @@ const App = () => {
 
   return (
     <div className={styles.appContainer}>
-      <Router>
-        <Navigation />
-        <Routes>
-          {' '}
-          <Route exact path="/">
-            <div>
-              <h2>Phonebook</h2>
-              <p>All your contacts in one place</p>
-              <ContactForm addContact={addContact} />
-              <h2>Contacts</h2>
-              <Filter filter={filter} handleFilterChange={handleFilterChange} />
-              {contacts.length > 0 && <UserMenu />}{' '}
-              {/* Wyświetl UserMenu tylko gdy użytkownik jest zalogowany */}
-              <ContactList
-                contacts={filteredContacts}
-                deleteContact={handleDeleteContact}
-              />
-            </div>
-          </Route>
-          <Route path="/login">
-            <div>
-              <h2>Login</h2>
-              <form>
-                <label>
-                  Email:
-                  <input type="email" name="email" />
-                </label>
-                <label>
-                  Password:
-                  <input type="password" name="password" />
-                </label>
-                <button type="submit">Login</button>
-              </form>
-            </div>
-          </Route>
-          <Route path="/register">
-            <div>
-              <h2>Register</h2>
-              <form>
-                <label>
-                  Login:
-                  <input type="text" name="login" />
-                </label>
-                <label>
-                  Email:
-                  <input type="email" name="email" />
-                </label>
-                <label>
-                  Password:
-                  <input type="password" name="password" />
-                </label>
-                <button type="submit">Register</button>
-              </form>
-            </div>
-          </Route>
-        </Routes>
-      </Router>
+      <Navigation />
+      <Routes>
+        {' '}
+        <Route exact path="/">
+          <div>
+            <h2>Phonebook</h2>
+            <p>All your contacts in one place</p>
+            <ContactForm addContact={addContact} />
+            <h2>Contacts</h2>
+            <Filter filter={filter} handleFilterChange={handleFilterChange} />
+            {contacts.length > 0 && <UserMenu />}{' '}
+            {/* Wyświetl UserMenu tylko gdy użytkownik jest zalogowany */}
+            <ContactList
+              contacts={filteredContacts}
+              deleteContact={handleDeleteContact}
+            />
+          </div>
+        </Route>
+        <Route path="/login">
+          <div>
+            <h2>Login</h2>
+            <form>
+              <label>
+                Email:
+                <input type="email" name="email" />
+              </label>
+              <label>
+                Password:
+                <input type="password" name="password" />
+              </label>
+              <button type="submit">Login</button>
+            </form>
+          </div>
+        </Route>
+        <Route path="/register">
+          <div>
+            <h2>Register</h2>
+            <form>
+              <label>
+                Login:
+                <input type="text" name="login" />
+              </label>
+              <label>
+                Email:
+                <input type="email" name="email" />
+              </label>
+              <label>
+                Password:
+                <input type="password" name="password" />
+              </label>
+              <button type="submit">Register</button>
+            </form>
+          </div>
+        </Route>
+      </Routes>
     </div>
   );
 };

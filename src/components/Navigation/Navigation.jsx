@@ -16,7 +16,6 @@ const Navigation = () => {
           <Link to="/register">Register</Link>
         </li>
       </ul>
-      <p>Test Navigation</p> {/* tekst jako test */}
     </nav>
   );
 };
