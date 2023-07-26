@@ -29,10 +29,3 @@ createRoot(document.getElementById('root')).render(
 //     </Router>
 //   </Provider>
 // );
-
-//kod z 7 zadania
-// createRoot(document.getElementById('root')).render(
-//   <Provider store={store}>
-//     <App />
-//   </Provider>
-// );
