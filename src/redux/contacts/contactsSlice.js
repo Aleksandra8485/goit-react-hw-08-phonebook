@@ -30,36 +30,26 @@ export const deleteContact = createAsyncThunk(
   }
 );
 
-// export const fetchContacts = createAsyncThunk(
-//   'contacts/fetchContacts',
-//   async () => {
-//     try {
-//       const response = await axios.get(
-//         'https://connections-api.herokuapp.com/contacts'
-//       );
-//       return response.data;
-//     } catch (error) {
-//       throw new Error('Failed to fetch contacts.');
-//     }
-//   }
-// );
-
-export const fetchContacts = () => async (dispatch, getState) => {
-  const token = getState().auth.token; // pobieranie tokena z Redux Store
-  try {
-    const response = await axios.get(
-      'https://connections-api.herokuapp.com/contacts',
-      {
-        headers: {
-          Authorization: `Bearer ${token}`, // dodanie nagłówka z tokenem
-        },
-      }
-    );
-    dispatch(setContacts(response.data));
-  } catch (error) {
-    console.error(error);
+export const fetchContacts = createAsyncThunk(
+  'contacts/fetchContacts',
+  async (_, { getState }) => {
+    const token = getState().auth.token; // pobieranie tokena z Redux Store
+    try {
+      const response = await axios.get(
+        'https://connections-api.herokuapp.com/contacts',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // dodanie nagłówka z tokenem
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
-};
+);
 
 const contactsSlice = createSlice({
   name: 'contacts',
