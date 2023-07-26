@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleRegister = async () => {
     try {
@@ -16,6 +18,8 @@ function RegisterForm() {
       );
       // obsługa odpowiedzi z backendu (np. wyświetl komunikat o powodzeniu rejestracji)
       console.log(response.data); // można wykorzystać dane z odpowiedzi, np. potwierdzenie rejestracji
+      // przekierowanie na stronę logowania po pomyślnym zarejestrowaniu
+      navigate('/login');
     } catch (error) {
       // obsługa błędu (np. wyświetl komunikat o nieudanej rejestracji)
       console.error(error);

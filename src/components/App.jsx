@@ -16,7 +16,6 @@ import Navigation from './Navigation/Navigation';
 import UserMenu from './UserMenu/UserMenu';
 import LoginForm from './LoginForm/LoginForm';
 import RegisterForm from './RegisterForm/RegisterForm';
-// import { isAuthenticated } from '../redux/authSlice';
 import styles from './App.module.css';
 
 const App = () => {
@@ -26,25 +25,36 @@ const App = () => {
   const filter = useSelector(state => state.contacts.filter);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   // Pobieranie kontaktu z backendu przy montowaniu komponentu
-  //   dispatch(fetchContacts());
-
-  //   // przekierowanie na stronę logowania, jeśli użytkownik nie jest zalogowany
-  //   if (!isAuthenticated) {
-  //     navigate('/login');
-  //   }
-  // }, [dispatch, isAuthenticated, navigate]);
+  // przechowywanie tokena JWT użytkownika po zalogowaniu
+  // const [userToken, setUserToken] = useState(null);
 
   useEffect(() => {
-    dispatch(fetchContacts()); // Pobieranie kontaktów z backendu przy montowaniu komponentu
-  }, [dispatch]);
+    const fetchContactsFromBackend = async () => {
+      const token = getTokenFromLocalStorage(); // pobierz token JWT z Local Storage
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     dispatch(fetchContacts());
-  //   }
-  // }, [dispatch, isAuthenticated]);
+      if (token) {
+        // ustaw token JWT w nagłówku żądania
+        setAuthToken(token);
+        dispatch(fetchContacts()); // Pobieranie kontaktów z backendu przy montowaniu komponentu
+      } else {
+        navigate('/login'); // przekierowanie na stronę logowania, jeśli użytkownik nie jest zalogowany
+      }
+    };
+
+    fetchContactsFromBackend(); // pobieranie kontaktów z backendu przy montowaniu komponentu
+  }, [dispatch, navigate]);
+
+  const getTokenFromLocalStorage = () => {
+    return localStorage.getItem('token');
+  };
+
+  const setAuthToken = token => {
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+      delete axios.defaults.headers.common['Authorization'];
+    }
+  };
 
   const addContact = async (name, number) => {
     const existingContact = contacts.find(

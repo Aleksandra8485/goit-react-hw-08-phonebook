@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -14,14 +16,16 @@ function LoginForm() {
           password,
         }
       );
-      // obsługa odpowiedzi z backendu (np. zapisz token JWT w localStorage, aby zachować sesję użytkownika)
-      console.log(response.data); // można wykorzystać dane z odpowiedzi, np. token JWT
+      // Zapisz token JWT w Local Storage
+      localStorage.setItem('token', response.data.token);
+
+      // Wykonaj jakieś akcje, np. przekierowanie na stronę po zalogowaniu
+      navigate('/');
     } catch (error) {
-      // obsługa błędu (np. wyświetl komunikat o nieudanym logowaniu)
+      // Obsługa błędu (np. wyświetlenie komunikatu o nieudanym logowaniu)
       console.error(error);
     }
   };
-
   return (
     <form>
       <div>

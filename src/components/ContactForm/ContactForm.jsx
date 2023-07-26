@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { saveContact } from '../../redux/contacts/contactsSlice';
+import axios from 'axios';
+// import { useDispatch } from 'react-redux';
+// import { saveContact } from '../../redux/contacts/contactsSlice';
 import styles from './ContactForm.module.css';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const dispatch = useDispatch();
-
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     // Wprowadzenie walidacji dla imienia
@@ -28,8 +27,18 @@ const ContactForm = () => {
       alert('Invalid phone number. Please use a valid phone number format.');
       return;
     }
+    try {
+      const response = await axios.post(
+        'https://connections-api.herokuapp.com/contacts',
+        { name, number }
+      );
 
-    dispatch(saveContact({ name, number }));
+      // Wykonaj jakieś akcje po dodaniu kontaktu, np. wyświetlenie potwierdzenia
+      console.log('Contact added:', response.data);
+    } catch (error) {
+      // Obsługa błędu, np. wyświetlenie komunikatu o nieudanym dodaniu kontaktu
+      console.error(error);
+    }
 
     setName('');
     setNumber('');
