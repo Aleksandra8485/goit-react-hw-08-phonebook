@@ -8,6 +8,10 @@ import {
 } from '../redux/contacts/contactsSlice';
 import axios from 'axios';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+// import { PrivateRoute } from './PrivateRoute';
+// import { RestrictedRoute } from './RestrictedRoute';
+// import { refreshUser } from 'redux/auth/operations';
+// import { useAuth } from 'hooks';
 
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
@@ -24,9 +28,6 @@ const App = () => {
   const contacts = useSelector(state => state.contacts.contacts);
   const filter = useSelector(state => state.contacts.filter);
   const navigate = useNavigate();
-
-  // przechowywanie tokena JWT użytkownika po zalogowaniu
-  // const [userToken, setUserToken] = useState(null);
 
   useEffect(() => {
     const fetchContactsFromBackend = async () => {
