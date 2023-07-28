@@ -1,10 +1,7 @@
 import React, { useEffect } from 'react';
 // import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchContacts,
-  deleteContact,
-} from '../../redux/contacts/contactsSlice';
+import { fetchContacts, deleteContact } from '../../redux/contacts/operations';
 import styles from './ContactList.module.css';
 
 const ContactList = () => {
