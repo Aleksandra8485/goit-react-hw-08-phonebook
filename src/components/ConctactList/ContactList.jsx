@@ -14,28 +14,11 @@ const ContactList = () => {
 
   useEffect(() => {
     const fetchContactsFromBackend = async () => {
-      const token = getTokenFromLocalStorage(); // Pobierz token JWT z Local Storage
-
-      // Ustaw token JWT w nagłówku żądania
-      setAuthToken(token);
-
       dispatch(fetchContacts()); // Pobieranie kontaktów z backendu przy montowaniu komponentu
     };
 
     fetchContactsFromBackend(); // Pobieranie kontaktów z backendu przy montowaniu komponentu
   }, [dispatch]);
-
-  const getTokenFromLocalStorage = () => {
-    return localStorage.getItem('token');
-  };
-
-  const setAuthToken = token => {
-    if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    } else {
-      delete axios.defaults.headers.common['Authorization'];
-    }
-  };
 
   //filtrowanie kontaktów na podstawie wartości filtra
   const filteredContacts = contacts.filter(contact =>
@@ -66,32 +49,61 @@ const ContactList = () => {
 
 export default ContactList;
 
-// useEffect(() => {
-//   dispatch(fetchContacts()); // Pobieranie kontaktów z backendu przy montowaniu komponentu
-// }, [dispatch]);
+//   const ContactList = () => {
+//   const dispatch = useDispatch();
+//   const contacts = useSelector(state => state.contacts.contacts);
+//   const filter = useSelector(state => state.contacts.filter);
 
-// //filtrowanie kontaktów na podstawie wartości filtra
-// const filteredContacts = contacts.filter(contact =>
-//   contact.name.toLowerCase().includes(filter.toLowerCase())
-// );
+//   useEffect(() => {
+//     const fetchContactsFromBackend = async () => {
+//       const token = getTokenFromLocalStorage(); // Pobierz token JWT z Local Storage
 
-// const handleDelete = contactId => {
-//   dispatch(deleteContact(contactId));
+//       // Ustaw token JWT w nagłówku żądania
+//       setAuthToken(token);
+
+//       dispatch(fetchContacts()); // Pobieranie kontaktów z backendu przy montowaniu komponentu
+//     };
+
+//     fetchContactsFromBackend(); // Pobieranie kontaktów z backendu przy montowaniu komponentu
+//   }, [dispatch]);
+
+//   const getTokenFromLocalStorage = () => {
+//     return localStorage.getItem('token');
+//   };
+
+//   const setAuthToken = token => {
+//     if (token) {
+//       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+//     } else {
+//       delete axios.defaults.headers.common['Authorization'];
+//     }
+//   };
+
+//   //filtrowanie kontaktów na podstawie wartości filtra
+//   const filteredContacts = contacts.filter(contact =>
+//     contact.name.toLowerCase().includes(filter.toLowerCase())
+//   );
+
+//   const handleDelete = contactId => {
+//     dispatch(deleteContact(contactId));
+//   };
+
+//   return (
+//     <ul className={styles.contactList}>
+//       {filteredContacts.map(contact => (
+//         <li key={contact.id} className={styles.contactItem}>
+//           <span className={styles.contactName}>{contact.name}</span>
+//           <span className={styles.contactNumber}>{contact.number}</span>
+//           <button
+//             className={styles.deleteBtn}
+//             onClick={() => handleDelete(contact.id)}
+//           >
+//             Delete
+//           </button>
+//         </li>
+//       ))}
+//     </ul>
+//   );
 // };
 
-// return (
-//   <ul className={styles.contactList}>
-//     {filteredContacts.map(contact => (
-//       <li key={contact.id} className={styles.contactItem}>
-//         <span className={styles.contactName}>{contact.name}</span>
-//         <span className={styles.contactNumber}>{contact.number}</span>
-//         <button
-//           className={styles.deleteBtn}
-//           onClick={() => handleDelete(contact.id)}
-//         >
-//           Delete
-//         </button>
-//       </li>
-//     ))}
-//   </ul>
-// );
+// export default ContactList;
