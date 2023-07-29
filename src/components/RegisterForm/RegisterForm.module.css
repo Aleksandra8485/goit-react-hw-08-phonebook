@@ -14,19 +14,17 @@
   padding: 20px;
   border: 2px solid #ccc;
   border-radius: 10px;
-  border: 2px solid #ccc;
-  border-radius: 10px;
 }
 
 .label {
   font-weight: 700;
   margin-bottom: 10px;
-  width: 100%; /* Ustawiamy szerokość na 100% */
+  width: 100%;
 }
 
 .input {
   display: flex;
-  width: 200px; /* Ustawiamy szerokość na 100% */
+  width: 200px;
   padding: 5px;
   font-size: 16px;
 }
