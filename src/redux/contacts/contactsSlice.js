@@ -57,6 +57,10 @@ const contactsSlice = createSlice({
       state.status = 'failed';
       state.error = action.error.message;
     });
+    // Obsługa akcji updateFilter
+    builder.addCase(setFilter, (state, action) => {
+      state.filter = action.payload;
+    });
   },
 });
 
