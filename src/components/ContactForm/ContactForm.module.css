@@ -1,3 +1,10 @@
+.container {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .form {
   padding: 20px;
   border: 2px solid black;
@@ -10,7 +17,10 @@
   margin-top: 10px;
   cursor: pointer;
   background-color: aquamarine;
-  padding: 5px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: blue;
+  width: 50%;
 }
 
 .input {

@@ -27,20 +27,22 @@ export const ContactList = () => {
   };
 
   return (
-    <ul className={styles.contactList}>
-      {filteredContacts.map(contact => (
-        <li key={contact.id} className={styles.contactItem}>
-          <span className={styles.contactName}>{contact.name}</span>
-          <span className={styles.contactNumber}>{contact.number}</span>
-          <button
-            className={styles.deleteBtn}
-            onClick={() => handleDelete(contact.id)}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
+    <div className={styles.container}>
+      <ul className={styles.contactList}>
+        {filteredContacts.map(contact => (
+          <li key={contact.id} className={styles.contactItem}>
+            <span className={styles.contactName}>{contact.name}</span>
+            <span className={styles.contactNumber}>{contact.number}</span>
+            <button
+              className={styles.deleteBtn}
+              onClick={() => handleDelete(contact.id)}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

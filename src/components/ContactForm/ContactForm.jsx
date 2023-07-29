@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { saveContact } from '../../redux/contacts/operations';
 import styles from './ContactForm.module.css';
@@ -26,32 +25,34 @@ export const ContactForm = () => {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        name="name"
-        pattern="^[a-zA-Z]+(\s[a-zA-Z]+)?$"
-        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-        required
-        onChange={e => setName(e.target.value)}
-        className={styles.input}
-      />
-      <input
-        type="text"
-        placeholder="Phone Number"
-        value={number}
-        pattern="^\d{3}-\d{3}-\d{3}$"
-        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        required
-        onChange={e => setNumber(e.target.value)}
-        className={styles.input}
-      />
-      <button className={styles.addContactBtn} type="submit">
-        Add Contact
-      </button>
-    </form>
+    <div className={styles.container}>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          name="name"
+          pattern="^[a-zA-Z]+(\s[a-zA-Z]+)?$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          onChange={e => setName(e.target.value)}
+          className={styles.input}
+        />
+        <input
+          type="text"
+          placeholder="Phone Number"
+          value={number}
+          // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+          onChange={e => setNumber(e.target.value)}
+          className={styles.input}
+        />
+        <button className={styles.addContactBtn} type="submit">
+          Add Contact
+        </button>
+      </form>
+    </div>
   );
 };
 
