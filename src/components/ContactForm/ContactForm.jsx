@@ -42,7 +42,7 @@ export const ContactForm = () => {
           type="text"
           placeholder="Phone Number"
           value={number}
-          // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          pattern="^[A-Za-z.'\- ]+$"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           onChange={e => setNumber(e.target.value)}
