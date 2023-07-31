@@ -32,7 +32,7 @@ export const ContactForm = () => {
           placeholder="Name"
           value={name}
           name="name"
-          pattern="^[a-zA-Z]+(\s[a-zA-Z]+)?$"
+          pattern="^^[A-Za-z.'\- ]+$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
           onChange={e => setName(e.target.value)}
@@ -42,7 +42,7 @@ export const ContactForm = () => {
           type="text"
           placeholder="Phone Number"
           value={number}
-          pattern="^[A-Za-z.'\- ]+$"
+          pattern="^\+?\d{1,4}?\s?\(?\d{1,4}?\)?\s?\d{1,4}\s?\d{1,4}\s?\d{1,9}$"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
           onChange={e => setNumber(e.target.value)}
